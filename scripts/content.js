@@ -16,30 +16,33 @@ console.log("This is a popup!");
 document.getElementById("myButton").addEventListener("click", myFunction);
 
 async function myFunction() {
-//     const permissionsToRequest = {
-//     permissions: ["USB"],
-//     origins: ["https://connect.dev.ittron.co.id/"],
-//   };
-//     const response = await chrome.permissions.request(permissionsToRequest);
-//     if (response) {
-//         document.getElementById("myButton").innerHTML = 'response';
-//     } else {
-//         document.getElementById("myButton").innerHTML = 'Permission was refused';
-//       console.log("Permission was refused");
-//     }
+    //     const permissionsToRequest = {
+    //     permissions: ["USB"],
+    //     origins: ["https://connect.dev.ittron.co.id/"],
+    //   };
+    //     const response = await chrome.permissions.request(permissionsToRequest);
+    //     if (response) {
+    //         document.getElementById("myButton").innerHTML = 'response';
+    //     } else {
+    //         document.getElementById("myButton").innerHTML = 'Permission was refused';
+    //       console.log("Permission was refused");
+    //     }
     document.getElementById("myButton").innerHTML = 'xxxxx';
     try {
-        navigator.usb.getDevices().then(devices => {
-            document.getElementById("myButton").innerHTML = 'devices' + devices.length;
-            devices.forEach(device => {
-                document.getElementById("myButton").innerHTML = 'device.productName' + device.productName;
-              console.log(device.productName);      // "Arduino Micro"
-              console.log(device.manufacturerName); // "Arduino LLC"
+        navigator.usb.getDevices().then((devices) => {
+            document.getElementById("myButton").innerHTML = `Total devices: ${devices.length}`;
+            devices.forEach((device) => {
+                document.getElementById("myButton").innerHTML = `Product name: ${device.productName}, serial number ${device.serialNumber}`;
             });
-          });
-          chrome.printing.getPrinters().then((printers) => {});
+        });
+
+        // chrome.printing.getPrinters().then((printers) => {
+        //     chrome.printing.getPrinterInfo(printer.id).then((printerInfo) => {
+        //         document.getElementById("myButton").innerHTML = printer.name;
+        //     });
+        // });
     } catch (error) {
-        document.getElementById("myButton").innerHTML = 'errror';
+        document.getElementById("myButton").innerHTML = error;
     } finally {
     }
 }
